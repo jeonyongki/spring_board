@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+MyBatis가 특정 도메인이나 목적에 맞게 SQL 문, 쿼리 및 매핑을 구성하고 관리
+MyBatis매핑 언어의 각요소는 관계형 데이터베이스와 상호 작용하기 위한 CRUD작업을 정의
+
+namespace로 <mapper> 요소를 Java 인터페이스에 연결
+id속성 : 인터페이스의 동일한 이름을 가진 메서드에 매핑(연결)
+parameterType속성 : 매개변수의 유형을 지정(경로포함)
+resultType속성 : SQL쿼리 결과가 매핑되어야 하는 유형을 지정
+-->
+<mapper namespace="com.ykj.board.dao.BoardDao">
+<!-- List 는 한개 원소에 해당하는 자료형 지정 -->
+<select id="getList" parameterType="int" resultType="com.ykj.board.dto.BoardDto">
+SELECT * FROM blist_1 WHERE ronum BETWEEN #{pageNum}*10-9 AND #{pageNum}*10
+</select>
+
+<!-- 게시판 목록 갯수 -->
+<select id="pageAllCnt" resultType="int">
+SELECT COUNT(*) FROM blist_1
+</select>
+<!-- 게시글 등록 -->
+<insert id="boardInsert" parameterType="com.ykj.board.dto.BoardDto" useGeneratedKeys="true" keyProperty="bnum">
+	<selectKey keyProperty="bnum" resultType="int" order="BEFORE">
+		SELECT BOARD_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	INSERT INTO b VALUES(#{bnum},#{btitle},#{bcontents},#{bid},DEFAULT,DEFAULT)
+</insert>
+<!-- 파일정보 등록 -->
+<insert id="fileInfoInsert" parameterType="HashMap">
+	INSERT INTO bf VALUES(BF_SEQ.NEXTVAL,#{bnum},#{oriName},#{sysName})
+</insert>
+</mapper>
+
+
+
+

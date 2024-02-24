@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+MyBatis가 특정 도메인이나 목적에 맞게 SQL 문, 쿼리 및 매핑을 구성하고 관리
+MyBatis매핑 언어의 각요소는 관계형 데이터베이스와 상호 작용하기 위한 CRUD작업을 정의
+
+namespace로 <mapper> 요소를 Java 인터페이스에 연결
+id속성 : 인터페이스의 동일한 이름을 가진 메서드에 매핑(연결)
+parameterType속성 : 매개변수의 유형을 지정(경로포함)
+resultType속성 : SQL쿼리 결과가 매핑되어야 하는 유형을 지정
+-->
+<mapper namespace="com.ykj.board.dao.MemberDao">
+<!-- 회원가입 -->
+<insert id="memberInsert" parameterType="com.ykj.board.dto.MemberDto">
+	INSERT INTO m VALUES(#{m_id}, #{m_pwd}, #{m_name}, #{m_birth}, #{m_addr}, #{m_phone}, #{m_point})
+</insert>
+
+<!-- 아이디검증 -->
+<select id="memberIdCheck" parameterType="String" resultType="int">
+	SELECT COUNT(*) FROM m WHERE m_id = #{id}
+</select>
+
+<!-- 패스워드 확인 -->
+<select id="memberPwdCheck" parameterType="String" resultType="String">
+	SELECT m_pwd FROM m WHERE m_id = #{id}
+</select>
+
+<!-- 로그인 정보 -->
+<select id="memberLoginInfo" parameterType="String" resultType="com.ykj.board.dto.MemberDto">
+SELECT * FROM minfo WHERE m_id = #{id}
+</select>
+
+<!-- 전체삭제 -->
+<delete id="memberDeleteAll">
+	DELETE FROM m
+</delete>
+</mapper>
