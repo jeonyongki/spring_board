@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -68,6 +69,7 @@ public class BoardService {
 
 		return pagingInnerHtml;
 	}
+	@Transactional
 	public String boardInsert(MultipartHttpServletRequest multipart, RedirectAttributes redirectAttributes) {
 		String view = "null";
 		String msg = "null";
@@ -103,7 +105,7 @@ public class BoardService {
 	private void fileUpload(MultipartHttpServletRequest multipart, int bnum) throws IOException {
 		//파일이 저장될 경로 지정(실제경로 + 지정경로)
 		String realPath = multipart.getServletContext().getRealPath("/");
-		realPath += "resources/upload/";
+		realPath += "resources/upload/";log.info(realPath);
 		//지정경로를 자동으로 생성(디렉터리 생성, 파일 정보 확인, 경로 작업 등)
 		File filedir = new File(realPath);
 		if(filedir.isDirectory()!=true) {
@@ -135,6 +137,12 @@ public class BoardService {
 				boardDao.fileInfoInsert(fileMap);
 			}
 		}
+	}
+	public ModelAndView getBoardContents(Integer bnum) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("boardContents");
+		return mv;
 	}
 
 }

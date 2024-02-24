@@ -37,4 +37,11 @@ public class BoardController {
 		String view = boardService.boardInsert(multipart, redirectAttributes);
 		return view;
 	}
+	//게시글 상세보기
+	@GetMapping("boardContents")
+	public ModelAndView boardContents(@RequestParam(name="bnum", required=false) Integer bnum) {
+		log.info("boardContents() : "+bnum);
+		ModelAndView mv = boardService.getBoardContents(bnum);
+		return mv;
+	}
 }

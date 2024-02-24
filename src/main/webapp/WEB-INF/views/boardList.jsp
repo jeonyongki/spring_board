@@ -48,7 +48,8 @@ $(document).ready(function(){
 			<c:forEach var="bitem" items="${bList}">
 			<div class="data-row">
 				<div class="t-no p-10">${bitem.bnum}</div>
-				<div class="t-title p-30"><a href="contents?bnum=${bitem.bnum}">${bitem.btitle}</a></div>
+				<!-- 상세보기 화면 url + 글번호 -->
+				<div class="t-title p-30"><a href="boardContents?bnum=${bitem.bnum}">${bitem.btitle}</a></div>
 				<div class="t-name p-15">${bitem.mname}</div>
 				<div class="t-date p-30"><fmt:formatDate value="${bitem.bdate}" pattern="yyyy-MM-dd-E HH:mm:ss" /></div>
 				<div class="t-view p-15">${bitem.bviews}</div>
