@@ -30,6 +30,10 @@ SELECT COUNT(*) FROM blist_1
 <insert id="fileInfoInsert" parameterType="HashMap">
 	INSERT INTO bf VALUES(BF_SEQ.NEXTVAL,#{bnum},#{oriName},#{sysName})
 </insert>
+<!-- 게시글 번호 가져오기 -->
+<select id="getBoardContents" parameterType="int" resultType="com.ykj.board.dto.BoardDto">
+	SELECT * FROM blist_1 WHERE bnum = #{bnum}
+</select>
 </mapper>
 
 

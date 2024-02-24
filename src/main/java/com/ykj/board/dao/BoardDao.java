@@ -14,4 +14,6 @@ public interface BoardDao {
  public void boardInsert(BoardDto board);
  //파일정보 저장
  public void fileInfoInsert(Map<String, String> fileMap);
+ //게시글 가져오기
+ public BoardDto getBoardContents(int bnum);
 }

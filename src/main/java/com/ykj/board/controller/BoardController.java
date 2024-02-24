@@ -41,7 +41,8 @@ public class BoardController {
 	@GetMapping("boardContents")
 	public ModelAndView boardContents(@RequestParam(name="bnum", required=false) Integer bnum) {
 		log.info("boardContents() : "+bnum);
-		ModelAndView mv = boardService.getBoardContents(bnum);
+		int num = (bnum!=null) ? bnum : 1;
+		ModelAndView mv = boardService.getBoardContents(num);
 		return mv;
 	}
 }

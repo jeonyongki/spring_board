@@ -55,4 +55,9 @@ public class BoardDaoTest {
 		log.info("map : " + map);
 		boardDao.fileInfoInsert(map);
 	}
+	@Test
+	public void getBoardContents() {
+		BoardDto board = boardDao.getBoardContents(43);
+		log.info(board.toString());
+	}
 }

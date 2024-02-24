@@ -138,9 +138,17 @@ public class BoardService {
 			}
 		}
 	}
-	public ModelAndView getBoardContents(Integer bnum) {
+	public ModelAndView getBoardContents(int bnum) {
 		ModelAndView mv = new ModelAndView();
+		//글내용
+		BoardDto boardDto = boardDao.getBoardContents(bnum);
+		//파일목록
 		
+		//댓글목록
+		
+		//모델에 담기
+		
+		//조회수 업데이트 1up
 		mv.setViewName("boardContents");
 		return mv;
 	}
