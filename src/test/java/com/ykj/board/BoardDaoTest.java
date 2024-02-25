@@ -11,6 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ykj.board.dao.BoardDao;
 import com.ykj.board.dto.BoardDto;
+import com.ykj.board.dto.BoardFileDto;
+import com.ykj.board.dto.BoardReplyDto;
 
 import lombok.extern.java.Log;
 
@@ -59,5 +61,33 @@ public class BoardDaoTest {
 	public void getBoardContents() {
 		BoardDto board = boardDao.getBoardContents(43);
 		log.info(board.toString());
+	}
+	@Test
+	public void getBoardFileListTest() {
+		List<BoardFileDto> bfList = boardDao.getBoardFileList(45);
+		for(int i=0; i<bfList.size(); i++) {
+			BoardFileDto bf = bfList.get(i);
+			log.info(bf.toString());
+//			log.info(bf.getBf_oriname());
+//			log.info(bf.getBf_sysname());
+		}
+	}
+	@Test
+	public void getBoardReplyListTest() {
+		List<BoardReplyDto> brList = boardDao.getBoardReplyList(5);
+		for(int i=0; i<brList.size(); i++) {
+			BoardReplyDto br = brList.get(i);
+			log.info(br.toString());
+		}
+	}
+	@Test
+	public void boardViewCntTest() {
+		int bnum = 44;
+		try {
+			boardDao.boardViewCnt(bnum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

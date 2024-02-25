@@ -34,6 +34,19 @@ SELECT COUNT(*) FROM blist_1
 <select id="getBoardContents" parameterType="int" resultType="com.ykj.board.dto.BoardDto">
 	SELECT * FROM blist_1 WHERE bnum = #{bnum}
 </select>
+<!-- 게시글 파일목록 가져오기 -->
+<select id="getBoardFileList" parameterType="int" resultType="com.ykj.board.dto.BoardFileDto">
+	SELECT bf_oriname, bf_sysname FROM bf WHERE bf_bnum = #{bnum} 
+</select>
+
+<!-- 게시글 댓글목록 가져오기 -->
+<select id="getBoardReplyList" parameterType="int" resultType="com.ykj.board.dto.BoardReplyDto">
+	SELECT * FROM rlist WHERE r_bnum = #{bnum}
+</select>
+<!-- 게시글 조회수 증가 -->
+<update id="boardViewCnt" parameterType="int">
+	UPDATE b SET b_views = b_views +1 WHERE b_num = #{bnum}
+</update>
 </mapper>
 
 

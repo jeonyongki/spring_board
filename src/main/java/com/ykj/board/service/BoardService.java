@@ -20,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ykj.board.dao.BoardDao;
 import com.ykj.board.dao.MemberDao;
 import com.ykj.board.dto.BoardDto;
+import com.ykj.board.dto.BoardFileDto;
+import com.ykj.board.dto.BoardReplyDto;
 import com.ykj.board.util.Paging;
 
 import lombok.extern.java.Log;
@@ -140,16 +142,26 @@ public class BoardService {
 	}
 	public ModelAndView getBoardContents(int bnum) {
 		ModelAndView mv = new ModelAndView();
-		//글내용
-		BoardDto boardDto = boardDao.getBoardContents(bnum);
-		//파일목록
-		
-		//댓글목록
-		
-		//모델에 담기
-		
-		//조회수 업데이트 1up
-		mv.setViewName("boardContents");
+		String view = null;
+		try {
+			//1.조회수 업데이트 1up
+			boardDao.boardViewCnt(bnum);
+			//2.글내용
+			BoardDto bcDto = boardDao.getBoardContents(bnum);
+			//3.파일목록
+			List<BoardFileDto> bfList = boardDao.getBoardFileList(bnum);
+			//4.댓글목록
+			List<BoardReplyDto> brList = boardDao.getBoardReplyList(bnum);
+			
+			//5.모델에 담기
+			mv.addObject("boardContent", bcDto);
+			mv.addObject("boardFile", bfList);
+			mv.addObject("boardReply", brList);
+			view = "boardContents";
+		} catch (Exception e) {
+			view = "boardList";
+		}
+		mv.setViewName(view);
 		return mv;
 	}
 
